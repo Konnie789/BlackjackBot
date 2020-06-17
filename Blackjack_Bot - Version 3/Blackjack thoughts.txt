@@ -1,0 +1,77 @@
+10 X 
+
+2 h
+3 h
+4 h
+5 h
+6 s
+7 s
+8 s
+9 s
+10 s
+J s
+Q s
+K s
+A s
+
+9 s vs 4 h 
+70% to stand, 30% for dealer to hit after the X card is revealed 
+
+9 X 
+
+2 h
+3 h
+4 h
+5 h
+6 h
+7 s
+8 s
+9 s
+10 s
+J s
+Q s
+K s
+A s
+
+8 s vs 5 h 
+
+
+16 in hand
+
+1 => 17
+2 => 18
+3 => 19
+4 => 20 
+5 => 21
+6 and on => bust
+
+
+8 X 
+
+2 h
+3 h
+4 h
+5 h
+6 h
+7 h
+8 s
+9 s
+10 s
+J s
+Q s
+K s
+A s
+
+7 s vs 6 h 
+54% vs 46%
+
+
+
+
+
+
+
+
+
+
+
