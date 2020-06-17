@@ -1,0 +1,385 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Academic Title Page
+% LaTeX Template
+% Version 2.0 (17/7/17)
+%
+% This template was downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% WikiBooks (LaTeX - Title Creation) with modifications by:
+% Vel (vel@latextemplates.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+% 
+% Instructions for using this template:
+% This title page is capable of being compiled as is. This is not useful for 
+% including it in another document. To do this, you have two options: 
+%
+% 1) Copy/paste everything between \begin{document} and \end{document} 
+% starting at \begin{titlepage} and paste this into another LaTeX file where you 
+% want your title page.
+% OR
+% 2) Remove everything outside the \begin{titlepage} and \end{titlepage}, rename
+% this file and move it to the same directory as the LaTeX file you wish to add it to. 
+% Then add \input{./<new filename>.tex} to your LaTeX file where you want your
+% title page.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+\usepackage{graphicx}
+\usepackage{mathpazo} % Palatino font
+\usepackage[legalpaper,margin=0.9in] {geometry}
+\usepackage{fancyhdr}
+\usepackage{float}
+
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
+\linespread{1.5}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textsc{University of Regina}}
+\rhead{\textsc{Software Systems Engineering}}
+\cfoot{\thepage}
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{titlepage} % Suppresses displaying the page number on the title page and the subsequent page counts as page 1
+	\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for horizontal lines, change thickness here
+	
+	\center % Centre everything on the page
+	
+	%------------------------------------------------
+	%	Headings
+	%------------------------------------------------
+	
+	\textsc{\Huge University of Regina}\\[1.5cm] % Main heading such as the name of your university/college
+
+	\textsc{\Large ENSE 480: Knowledge Base and Informations Systems }\\[0.5cm]
+	
+	\textsc{\Large Software Systems Engineering}\\[0.5cm] % Major heading such as course name
+	
+	
+	
+	
+	%------------------------------------------------
+	%	Title
+	%------------------------------------------------
+	
+	\HRule\\[0.4cm]
+	
+	{\Huge\bfseries AI Project: Blackjack Bot}\\[0.4cm] % Title of your document
+	
+	\HRule\\[1.5cm]
+	
+	%------------------------------------------------
+	%	Author(s)
+	%------------------------------------------------
+	
+	\begin{minipage}[t]{0.4\textwidth}
+		\begin{flushleft}
+			\large
+			\textsc{Author}\\
+			Konstantin Kharitonov\\
+			\textsc{200354502} % Supervisor's name
+		\end{flushleft}
+		
+	\end{minipage}
+	~
+	\begin{minipage}[t]{0.4\textwidth}
+		\begin{flushright}
+			\large
+			\textsc{Supervisor}\\ % Supervisor's name
+			Christine Chan\\
+			Ph.D., P.Eng.\\
+		\end{flushright}
+	\end{minipage}
+	
+	% If you don't want a supervisor, uncomment the two lines below and comment the code above
+	%{\large\textit{Author}}\\
+	%John \textsc{Smith} % Your name
+	%------------------------------------------------
+	%	Logo
+	%------------------------------------------------
+	
+	\vfill\vfill\vfill\vfill
+	\includegraphics[width=0.7\textwidth]{UR.png}\\[2cm] % Include a department/university logo - this will require the graphicx package
+	 
+
+	%------------------------------------------------
+	%	Date
+	%------------------------------------------------
+	
+	\vfill\vfill\vfill % Position the date 3/4 down the remaining page
+	
+	{\large\today} % Date, change the \today to a set date if you want to be precise
+	
+	%----------------------------------------------------------------------------------------
+	
+	\vfill % Push the date up 1/4 of the remaining page
+	
+\end{titlepage}
+
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%Table of Contents %
+
+\newpage 
+\tableofcontents
+%-------------------------------------------------------------------------------------
+
+%-------------------------------------------------------------------------------------
+%Table of Figures % 
+\newpage
+\listoffigures
+\newpage
+%-------------------------------------------------------------------------------------
+\section{Introduction}
+Blackjack is a popular gambling card game that has been inside casinos since around the late 1500s. It involves up to 7 players at a table facing off a dealer. At the top of a round, each player and the dealer recieves two cards in their hand, and the dealer having to place their first card faced down on the table and their second card faced up. The objective of the game is to win by either getting a score of 21 from the first two cards, achieve a combined high score higher score at the end of the game without going over 21, or have the dealer's score be higher than 21. At the top of the game each player will submit their bets and recieves their cards. A player will continue recieve cards (hit) until they are satisfied with the score of their hand (stand) or they go over 22 and bust, which results in a loss. Once all players have completed their turns, the dealer reveals the face down card and will automatically hit if the hand has a score until it reaches 17 (based on most casino rules) or the dealer busts.
+\newline
+{\setlength{\parindent}{0cm}
+
+As with most casino games, the very nature of the game is set up so that the dealer, which represents the casino, wins the majority of the time. Different strategies have been developed for the game, such as using probability analysis, can help a player improve, but ultimately it not lead to the player winning over the dealer. Other strategies such as counting cards have proven to be successful, but once these methods were figured out, casinos quickly outlawed them and were aggressive in enforcing the ban.  
+\newline
+{\setlength{\parindent}{0cm}
+
+As such, the purpose of this AI bot was to find if a player can still be successful enough at the game of blackjack but still be seen as a legal player. Can a computer artificial intelligence on a consistent, use legitimate and legal blackjack strategies, start from a pot of \$200 and win its way to a pot of \$1000?
+
+\section{Representation and Data Structures}
+As currently designed, the application first creates an array of 52 cards, representing each card in the deck. Every card is created as its own object, with its own suit and value. Once created, a deck creates an array of cards, populating them with a suit and a value. When requested, a card will be displayed in the form of XofY, with a X being the card value and Y being the suit. For example, a jack of hearts will be shown as JofH. The following image showcases how the cards are stored into a deck.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=5in]{deck.png}\\
+	\caption{Creation of a deck}
+	\label{fig:tobias}
+\end{figure}
+
+This method was chosen since every single card has two distinct attributes associated with, and there is a finite amount of cards in a deck. Each time a card is drawn from the deck, it can be removed from the deck array and then used in a hand. As well, using a multidimensional allows for tracking cards that have the same value, but with a different suit. For example, there are 4 of king cards in a standard deck, but there are only one king per suit. It also allowed for a card to be stored  in the XofY format as a string, which then gets added to a vector array for the player's hand and the dealers hand. Using vector arrays were an easier choice than static arrays, as the built in functionality allowed for easier parsing through each element in the array, specifically push\_ back() and size() functions. Each hand array will only be as large as there are cards inside the hand. For example, if the AI player only hits once and has three cards, the array will only need to be 3 elements big for that particular round. Once all cards drawn are inside the hand array, each element can easily be evaluated to see how much a card is worth. 
+
+\section{Techniques and Algorithms}
+There are two functions which control the Blackjack Bot and its decision making, hitOrStand and runSimulation, with playHand being the function that runs the rules for a round of Blackjack. 
+\newline
+{\setlength{\parindent}{0cm}
+
+\textbf{Function Name:} playHand
+\newline
+\textbf{Input Parameters:} deck (Deck object), player1Win(\& bool), player1Lose (\& bool), player1Push (\& bool), successCount (\& int), failCount (\& int)
+\newline
+\textbf{Output Parameters:} None
+\newline
+\textbf{Function Requirements:} Function for calculating each hand, check for a bust  
+\newline
+\textbf{Description: }
+\begin{enumerate}
+	\item Deals two cards for the player and two cards for the dealer.
+	\item Calculates the score of each hand, displays the player's score, the player's hand and one card of the dealer's hand. 
+	\item call hitOrStand and wait for the Bot to respond with either a hit or a stand.
+	\item If there is a hit, then a card will be added to the player's hand, calculates to the hand's score and sees if the player busts
+	\item If there is a stand, then a the dealer will reveal second card, hit until score is over 16.
+	\item checks to see if player won, lost, or pushed (tie).
+\end{enumerate}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=5in]{playHand_part1.png}\\
+	\caption{Part 1 of playHand}
+	\label{fig:tobias}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=5in]{playHand_part2.png}\\
+	\caption{Part 2 of playHand}
+	\label{fig:tobias}
+\end{figure}
+
+\newpage
+\textbf{Function Name:} hitOrStand
+\newline
+\textbf{Input Parameters:} currentHand (vector<string>), dealerHand(vector<string>), score (int), successCount (int), failCount(int)
+\newline
+\textbf{Output Parameters:} move (char)
+\newline
+\textbf{Function Requirements:} Need to know the score of the dealer's face up card
+\newline
+\textbf{Description: }
+\begin{enumerate}
+	\item checks to see value of players score
+	\item will determine whether or not to send an h (hit) or s (stands), depending on the score of the player's hand, score of the dealer's hand, amount of cards inside the Bot's hand, and amount of wins in a particular game.
+	\item returns the Bot's decision to playHand
+\end{enumerate}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=5in]{hitOrStand_part1.png}\\
+	\caption{Part 1 of hitOrStand}
+	\label{fig:tobias}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=5in]{hitOrStand_part2.png}\\
+	\caption{Part 2 of hitOrStand}
+	\label{fig:tobias}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=5in]{hitOrStand_part3.png}\\
+	\caption{Part 3 of hitOrStand}
+	\label{fig:tobias}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=5in]{hitOrStand_part4.png}\\
+	\caption{Part 4 of hitOrStand}
+	\label{fig:tobias}
+\end{figure}
+
+\newpage
+\textbf{Function Name:} runSimulation
+\newline
+\textbf{Input Parameters:} numOfTurns (\& int), successCount (\& int), failCount (\& int), gameCount (\& int) successArray(\& int)
+\newline
+\textbf{Output Parameters:} None 
+\newline
+\textbf{Function Requirements:} starting player pot of \$ 200
+\newline
+\textbf{Description: }
+\begin{enumerate}
+	\item Starts off by choosing the type of bet based on the previous rounds. 
+	\item Calls the playHand function to find the result of the hand.
+	\item If the Bot wins, increase the pot by the bet and increment the streak counter.
+	\item If the Bot loses, decrease the pot by the bet and set the streak counter to 0.
+	\item Increment the number of rounds counter.
+	\item If the Bot has reached a pot that is greater than or equal to \$1000, then the particular simulation is successful and is stored into the success array.
+	\item If the Bot has a pot of \$0, then the simulation ends with an increment of the fail count.
+	\item Simulation continues on until one of these two end states occur.
+\end{enumerate}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=5in]{runSimulation_part1.png}\\
+	\caption{Part 1 of runSimulation}
+	\label{fig:tobias}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=6in]{runSimulation_part2.png}\\
+	\caption{Part 2 of runSimulation}
+	\label{fig:tobias}
+\end{figure}
+
+
+\section{Structural Diagram for Major Modules}
+For this program, the three functions act as their own modules of the entire project. In the first module, the user selects the amount of times the simulation will run. As such, the system will first chose the amount of money it will bet on the first hand in 'runSimulation', then call the 'playHand' module to start a round by drawing cards for both the player and the dealer. The player will then either hit or stand depending on what their hand is. Once the player stands, then the dealer will show their face down card, continue to hit until the score is above 16 and will then end it turn. Depending on who has the final score, the system will mark either a player win or a player loss. A player bust will automatically end in a player loss and a dealer bust will automatically end in a player win. Then the system is run again for the top of the round depending on how long it is set to run for.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=6in]{module.png}\\
+	\caption{The Blackjack Bot Module Diagram}
+	\label{fig:tobias}
+\end{figure}
+
+There are different paths that the Bot may take during runtime, but there are only two different end states before the system is looped to the beginning.
+
+\section{User Manual}
+The Blackjack bot is compiled using C++, so an executable is created. To run the program, one must simply double click on the file and the Bot will start up. If a user wants to execute the code from scratch, the user must have a C++ compiler on their system or use an IDE with a C++ compiler installed. It is recommended to use a g++, as that is what I used for creating this project. If compiling from a command line, please use the following commands.
+\newline
+{\setlength{\parindent}{0cm}
+\newline
+For a Windows System using MinGW or similar compiler:
+\begin{enumerate}
+	\item g++ -c main.cpp Hand.cpp Card.cpp Deck.cpp
+	\item g++ main.o Hand.o Card.o Deck.o -o Bot.exe
+	\item Bot.exe
+\end{enumerate}
+
+For a Linux System:
+\begin{enumerate}
+	\item g++ -c main.cpp Hand.cpp Card.cpp Deck.cpp
+	\item g++ main.o Hand.o Card.o Deck.o -o Bot
+	\item ./Bot
+\end{enumerate}
+
+\newpage
+\section{Sample Session}
+Once the program is loaded up, a prompt will appear asking how many simulations the user wants to run, between 1 and 1000. 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=5in]{session1.png}\\
+	\caption{Prompt at the start}
+	\label{fig:tobias}
+\end{figure}
+
+At this point, after inputs a number, the simulation will run for as many amount as times specified, and see if the Bot was successful in its goal of reaching the \$1000 threshold. 
+ \begin{figure}[H]
+	\centering
+	\includegraphics[width=5in]{session2.png}\\
+	\caption{Stats of the simulation}
+	\label{fig:tobias}
+\end{figure}
+
+Figure 12 showcases the end result of a run. The program will showcase the number of hands there were in a particular simulation, the average amount of hands in the simulation and how many times the Bot was successful in achieving the \$1000 and how many times the Bot lost all of its starting money.
+
+ \begin{figure}[H]
+	\centering
+	\includegraphics[width=2in]{session3.png}\\
+	\caption{A particular Hand}
+	\label{fig:tobias}
+\end{figure}
+
+Figure 13 showcases how a particular hand will go. It is shown how the previous hand effects the type of bet that the Bot is going to make. It also showcases the type of moves that the Bot will make depending on the current status of their success and the status of the game. 
+
+\section{Discussion}
+After the implementation of the Blackjack Bot, it was not able to consistently win, even with the help of evaluation of dealer's hands, probability analysis of what the next card in a deck might be, the system was still only winning well below what was expected. On a run of 1000 simulations, the Blackjack bot was only able to achieve its goal of getting to \$1000 starting from an inital pot of \$200 only 95 times. That leaves the Blackjack Bot with roughly a 10\% chance for the bot to have a success simulation. It begs the question, why is it so unsuccessful? 
+\newline
+{\setlength{\parindent}{0cm}
+
+The first potential for the futility of the limitations of the kind of cases that the system does not currently have implemented. It is always possible to expand on the currently algorithm and add more specific cases to the system that are currently not there. 
+\newline
+{\setlength{\parindent}{0cm}
+
+Due to time contraints, not all blackjack moves are currently implemented. The two biggest rules would be the ability to split a hand as well as the double down rule. To split a hand, the player must have a hand where they have two of the same card values in one hand. When this happens, the player essentially has two hands where the player can bet on, allowing the player to double their money on a bet. However, this also means that if the player loses both hands, they lose twice the money. Another such feature is doubling down, where the player can double their bet and request only one card, forced to stand after the card is given. Another way that could increase the amount of money that the bot can make on a particular good hand, but can also be detrimental if not done properly.
+\newline
+{\setlength{\parindent}{0cm}
+
+However, the ultimate reason as to the unsuccessfulness of the system is the very nature of the game of blackjack itself. The way it is currently designed, the odds of winning are always heavily swayed in the favour of the dealer. A player has to make a guess as to what the dealer might have in a certain hand as well as make a guess on what hand might come during a hit. As well, since it is more likely that the dealer will in a particular round of blackjack, the odds of winning enough rounds that a player is able to quintuple their money playing the game are extremely low compared to the chances of bottoming out. Without cheating, it is just not very likely a person is able to accomplish such a large goal. When the score was halved to only be at \$500, the Blackjack Bot was much more successful, being able to reach that goal 55\% of the time, more than half. There are some methods, such as counting cards that can result in the player winning more than the dealer, but those methods are deemed illegal in casinos, defeating the purpose of the Blackjack bot at being one that simulates a real life scenario. As such, it is difficult for the bot to be lucky consistently so many times, and it may be limited because of the very nature of the game it was designed to play. 
+
+\section{Conclusion and Future Features}
+The Blackjack Bot is a humble AI, resulting in a small scope. Since it intended to aid a person with their blackjack playing skills, it was never intended on being a completely revolutionary AI system. The methods of developing an AI that searches for the best possible outcome in a probability situation allows for the system to be  as complex or as simple as need be. This AI was the first attempt at implementing a depth-first searching AI system, as it attempts to find a possible solution through many different potential nodes that can be processed through. 
+\newline
+{\setlength{\parindent}{0cm}
+
+In terms of future work, the main objective would be to implement more refined rules to better enhance the playing ability of the Bot. While the current iteration is able to play, the system can still use some definite improvement such that it is able to win more games in the future. As well, the two gameplay features of doubling down and splitting are ones that I want to have in the game for the next release as they are rudimentary rules of the game and by having then in my system does make the Bot much more realistic. I also do want to implement a counting cards system. While yes it is an illegal play, it is still a legitimate strategy that has proven to be successful and showcasing it may help develop strategies that are effective but also will not get a player kicked out of a casino.
+
+\newpage 
+\section{References}
+Cardoso, Karla R., et al. “Extracting Rules for Black Jack Using Machine Learning and Fuzzy Systems.” \textit{2018 IEEE International Conference on Fuzzy Systems (FUZZ-IEEE)}, 2018, doi:10.1109/fuzz-ieee.2018.8491688.
+\newline
+{\setlength{\parindent}{0cm}
+
+Moon, H., Yang, T., Kim, S., \& Park, J. (2017). Comparison of Gambling Industry through Study Analysis in the World. \textit{2017 IEEE International Congress on Big Data (BigData Congress)}. doi:10.1109/bigdatacongress.2017.81
+\newline
+{\setlength{\parindent}{0cm}
+
+Fogel, D.b. “Evolving Strategies in Blackjack.” \textit{Proceedings of the 2004 Congress on Evolutionary Computation (IEEE Cat. No.04TH8753)}, doi:10.1109/cec.2004.1331064.
+\newline
+{\setlength{\parindent}{0cm}
+
+Sir Joseph the Pladin. (2013, September 6). \textit{C++ Programming 49 - Deck of Cards}[Video File].Retrieved from https://www.youtube.com/watch?v=NAAEMILMt-Q
+
+\end{document}
