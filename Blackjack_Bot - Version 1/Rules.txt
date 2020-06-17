@@ -1,0 +1,4 @@
+Basic AI rules
+
+- hit till 15, stand on 16
+- bet $100 first, $50 afterwards
